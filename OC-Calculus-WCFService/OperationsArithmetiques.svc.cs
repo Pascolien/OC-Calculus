@@ -97,7 +97,9 @@ namespace OC_Calculus_WCFService
         public int ChaineDAdditionsEtSoustractionsEtMultiplicationsEntieres(string chaine)
         {
             int resultat = 0;
-            
+            chaine = chaine.Replace("-", "+-");
+            chaine = chaine.Replace("*+", "*");
+
             string[] nombresAdditionner = chaine.Split('+');
             string[] nombresMultiplier;
 
@@ -105,15 +107,18 @@ namespace OC_Calculus_WCFService
             {
                 foreach (string strNombres in nombresAdditionner)
                 {
-                    int resultatMultiplication = 0;
-                    nombresMultiplier = strNombres.Split('*'); 
-                    
-                    foreach (string nombres in nombresMultiplier)
+                    if (strNombres != "")
                     {
-                        resultatMultiplication *= Convert.ToInt32(nombres);
-                    }
+                        int resultatMultiplication = 1;
+                        nombresMultiplier = strNombres.Split('*');
 
-                    resultat += resultatMultiplication;
+                        foreach (string nombres in nombresMultiplier)
+                        {
+                            resultatMultiplication *= Convert.ToInt32(nombres);
+                        }
+
+                        resultat += resultatMultiplication;
+                    }
                 }
             }
             return resultat;
